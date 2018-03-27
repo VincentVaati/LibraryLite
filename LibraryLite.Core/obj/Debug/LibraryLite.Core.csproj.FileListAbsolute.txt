@@ -1,0 +1,5 @@
+J:\DEVServer\LibraryLite\LibraryLite.Core\bin\Debug\LibraryLite.Core.dll
+J:\DEVServer\LibraryLite\LibraryLite.Core\bin\Debug\LibraryLite.Core.pdb
+J:\DEVServer\LibraryLite\LibraryLite.Core\obj\Debug\LibraryLite.Core.dll
+J:\DEVServer\LibraryLite\LibraryLite.Core\obj\Debug\LibraryLite.Core.pdb
+J:\DEVServer\LibraryLite\LibraryLite.Core\obj\Debug\LibraryLite.Core.csprojResolveAssemblyReference.cache

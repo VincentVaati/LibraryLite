@@ -1,0 +1,46 @@
+﻿@model LibraryLite.UI.Web.MVC.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login - LibraryLite";
+    ViewBag.ReturnUrl = Url.Action("Dashboard", "Home");
+}
+
+<div class="form-container">
+    <div class="form-wrapper">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
+            @*<button class="form-btn-hide">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>*@
+
+            <form class="form validate-form">
+                <span class="form-title">
+                    Login
+                </span>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="input-wrapper validate-input" data-validate="Username is required">
+                    <span class="input-label">Username</span>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input", @placeholder = "Enter your username" })
+                    <span class="input-focus"></span>
+                </div>
+
+                <div class="input-wrapper validate-input" data-validate="Password is required">
+                    <span class="input-label">Password</span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "input", @placeholder = "Enter your password" })
+                    <span class="input-focus"></span>
+                </div>
+                <div class="form-container-form-btn">
+                    <button class="form-btn">
+                        <span>
+                            Login
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+<script src="~/Scripts/map-custom.js"></script>
+
+<script src="~/Scripts/main.js"></script>

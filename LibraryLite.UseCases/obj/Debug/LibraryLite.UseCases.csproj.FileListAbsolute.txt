@@ -1,0 +1,9 @@
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\obj\Debug\LibraryLite.UseCases.csprojResolveAssemblyReference.cache
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\LibraryLite.UseCases.dll
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\LibraryLite.UseCases.pdb
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\EntityFramework.dll
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\LibraryLite.Core.dll
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\LibraryLite.Core.pdb
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\bin\Debug\EntityFramework.xml
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\obj\Debug\LibraryLite.UseCases.dll
+J:\DEVServer\LibraryLite\LibraryLite.UseCases\obj\Debug\LibraryLite.UseCases.pdb

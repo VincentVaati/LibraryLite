@@ -1,0 +1,124 @@
+﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.BookLoanRequestViewModel
+
+@{
+    ViewBag.Title = "Book loans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="list">
+  
+    <div class="form-group">
+        @Html.Label("Filter loans by student", "Filter book loans by student", new { @class = "control-label" })
+        <div class="">
+            @Html.DropDownList("Filter by student", ViewBag.StudentsSelectionList as IEnumerable<SelectListItem>, "- Select all book loans -", new { @id = "studentId", @class = "form-control" })
+        </div>
+    </div>
+    
+        <h2>Book loans</h2>
+    <p>View,add new or change existing book loan information</p>
+    <a href="@Url.Action("Create","BookLoan")"><i class='fa fa-plus-circle'></i>Loan book</a>
+
+    <table id="tableId" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfIssue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReturnDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>    
+</div>
+<script>
+
+    var deleteUrl = '@Url.Action("ReturnBook")';
+    $.ajax({
+        url: '@Url.Action("GetBookLoans")',
+        verb: 'POST',
+        dataType: 'json',
+        data: { id: $("#studentId").val() },
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            ($('#tableId tbody').empty());
+            var items = "";
+            var isBookReturned;
+            if (item.DateReturned == null) {
+                isBookReturned = "Not returned";
+            }
+            else {
+                isBookReturned = "Returned";
+            }
+            $.each(data, function (i, item) {
+                var rows = "<tr>"
+                + "<td>" + item.Name + "</td>"
+                + "<td>" + item.BookTitle + "</td>"
+                + "<td>" + item.DateOfIssue + "</td>"
+                + "<td>" + item.DueDate + "</td>"
+                + "<td>" + isBookReturned + "</td>"
+                + '<td><a href=\"' + deleteUrl +"/"+ item.Id +'"><i class="fa fa-edit"></i>Return book</a></td>'
+                + "</tr>"
+                $('#tableId tbody').append(rows);
+            });
+        },
+        error: function (ex) {
+            var r = ex.responseText;
+        }
+    });
+    $("#studentId").change(function () {
+        var studentId = $("#studentId").val();
+ 
+       ($('#tableId tbody').empty());
+        if (studentId != null || studentId != "") {
+            $.ajax({
+                url: '@Url.Action("GetBookLoans")',
+                verb: 'POST',
+                dataType: 'json',
+                data: { id: $("#studentId").val() },
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var items = "";
+                    $.each(data, function (i, item) {
+                        var isBookReturned;
+                        if (item.DateReturned == null)
+                        {
+                            isBookReturned = "Not returned";
+                        }
+                        else {
+                            isBookReturned = "Returned";
+                        }
+                        var rows = "<tr>"
+                        + "<td>" + item.Name + "</td>"
+                        + "<td>" + item.BookTitle + "</td>"
+                        + "<td>" + item.DateOfIssue + "</td>"
+                        + "<td>" + item.DueDate + "</td>"
+                        + "<td>" + isBookReturned + "</td>"
+                        + '<td><a href=\"' + deleteUrl + "/" + item.Id + '"><i class="fa fa-edit"></i>Return book</a></td>'
+                        + "</tr>"
+                        $('#tableId tbody').append(rows);
+                    });
+                },
+                error: function (ex) {
+                    var r = ex.responseText;
+                    //alert("Message: " + r.Message);
+                    //alert("StackTrace: " + r.StackTrace);
+                    //alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        }
+    });
+</script>
+ 

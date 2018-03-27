@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        <nav class="navbar navbar-expand-lg" id="LoginNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">LibraryLite</a>
+                <div class="navbar-header text-uppercase ml-auto dl-menuwrapper" id="dl-menu">
+                    <a class="dl-trigger" href="#" data-toggle="collapse" data-target=".dl-menu" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>MENU
+                    </a>
+                    <ul class="dl-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Settings")">Settings</a>
+                            <ul class="dl-submenu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Settings")">Application settings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","Student")">Manage users</a>
+                                    <ul class="dl-submenu">
+                                        <li class="nav-item">
+                                        <li class=" nav-item">@Html.ActionLink("users", "Index", "Admin", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link js-scroll-trigger" })</li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("Manage","Account")">Change password</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Book")">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Class")">Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Student")">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Actions</a>
+                            <ul class="dl-submenu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index","BookLoan")">Loan book</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ml-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link js-scroll-trigger" })
+                        </li>
+                        <li class="nav-item"><a class="logout nav-link js-scroll-trigger" href="javascript:document.getElementById('logoutForm').submit()">Log off<i class="fa fa-sign-out"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+      
+    }
+}
+else
+{
+    <nav class="navbar navbar-expand-lg fixed-top-layout" id="LoginNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">LibraryLite</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="login nav-link js-scroll-trigger" id="loginLink" href="@Url.Action("Login","Account")">Login<i class="fa fa-sign-in"></i></a>
+                    </li>
+                    @*<li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link js-scroll-trigger" })</li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>  
+}

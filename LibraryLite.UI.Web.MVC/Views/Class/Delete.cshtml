@@ -1,0 +1,39 @@
+﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.ClassViewModel
+
+@{
+    ViewBag.Title = "Delete class";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-wrapper">
+        @using (Html.BeginForm("Delete", "Class", FormMethod.Post, new { role = "form" }))
+        {
+            @*<button class="form-btn-hide">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                </button>*@
+
+            <form class="form validate-form">
+                <span class="form-title">
+                    Delete class
+                </span>
+                <p>Are you sure you want to delete this class?</p>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="form-container-form-btn">
+                    <button class="form-btn delete" type="submit">
+                        <span>
+                            yes
+                            <i class="" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <a href="@Url.Action("Index","Class")"><i class='fa fa-long-arrow-left m-l-7'></i>Back to list</a>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+<script src="~/Scripts/map-custom.js"></script>
+
+<script src="~/Scripts/main.js"></script>
+

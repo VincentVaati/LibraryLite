@@ -1,0 +1,54 @@
+﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.BookViewModel
+
+@{
+    ViewBag.Title = "Edit book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-wrapper">
+        @using (Html.BeginForm())
+        {
+           @*<button class="form-btn-hide">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>*@
+
+            <form class="form validate-form">
+                <span class="form-title">
+                    Edit book
+                </span>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="input-wrapper validate-input" data-validate="Username is required">
+                    <span class="input-label">Book number</span>
+                    @Html.TextBoxFor(m => m.BookNumber, new { @class = "input", @placeholder = "Enter book name" })
+                    <span class="input-focus"></span>
+                </div>
+
+                <div class="input-wrapper validate-input" data-validate="Password is required">
+                    <span class="input-label">Isbn</span>
+                    @Html.TextBoxFor(m => m.ISBN, new { @class = "input", @placeholder = "Enter book Isbn" })
+                    <span class="input-focus"></span>
+                </div>
+
+                <div class="input-wrapper validate-input" data-validate="Password confirmation is required">
+                    <span class="input-label">Book title</span>
+                    @Html.TextBoxFor(m => m.BookTitle, new { @class = "input", @placeholder = "Enter book title" })
+                    <span class="input-focus"></span>
+                </div>
+                <div class="form-container-form-btn">
+                    <button class="form-btn">
+                        <span>
+                            Edit book
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <a href="@Url.Action("Index","Book")"><i class='fa fa-plus-circle'></i>Back to List</a>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+<script src="~/Scripts/map-custom.js"></script>
+
+<script src="~/Scripts/main.js"></script>

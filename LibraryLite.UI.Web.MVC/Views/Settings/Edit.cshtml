@@ -1,0 +1,62 @@
+﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.ApplicationSettingsViewModel
+
+@{
+    ViewBag.Title = "Edit settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form mx-auto">
+    <div class="form-header">
+        <h2>LibraryLite</h2>
+    </div>
+    <div class="form-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <p>Edit application settings</p>
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.LabelFor(m => m.InstitutionName, new { @class = "control-label" })
+                <div class="">
+                    @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MaxBooksLoanable, new { @class = "control-label" })
+                <div class="">
+                    @Html.TextBoxFor(m => m.MaxBooksLoanable, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LoanDays, new { @class = "control-label" })
+                <div class="">
+                    @Html.TextBoxFor(m => m.LoanDays, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Penalty)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Penalty, new { @class = "control-label" })
+                <div class="">
+                    @Html.TextBoxFor(m => m.Penalty, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Penalty)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="">
+                    <input type="submit" class="btn btn-block btn-primary" value="Save" />
+                </div>
+                <a href="@Url.Action("Index","Settings")"><i class='fa fa-plus-circle'></i>Back to List</a>
+            </div>
+
+
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

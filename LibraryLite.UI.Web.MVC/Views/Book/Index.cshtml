@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LibraryLite.UI.Web.MVC.Presentation.ViewModels.BookViewModel>
+
+@{
+    ViewBag.Title = "Book information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="list">
+    @*<h2>Book Information</h2>*@
+    <p>View,add new or change existing book information</p>
+    <a href="@Url.Action("Create","Book")"><i class='fa fa-plus-circle'></i>ADD</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookTitle)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ISBN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookTitle)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Book", new  { id = item.Id})"><i class='fa fa-edit'></i>Edit</a>
+                        <a href="@Url.Action("Delete","Book",new { id =item.Id })"><i class='fa fa-times-circle alert-danger'></i>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

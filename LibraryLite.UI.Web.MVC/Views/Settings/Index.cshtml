@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LibraryLite.UI.Web.MVC.Presentation.ViewModels.ApplicationSettingsViewModel>
+
+@{
+    ViewBag.Title = "Settings index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="list">
+    <h2>Settings list</h2>
+    <p>View,add new or change existing application settings</p>
+    <a href="@Url.Action("Create","Settings")"><i class='fa fa-plus-circle'></i>ADD</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InstitutionName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaxBooksLoanable)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoanDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Penalty)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InstitutionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxBooksLoanable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoanDays)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Penalty)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Settings", new  { id = item.Id})"><i class='fa fa-edit'></i>Edit</a>
+                        <a href="@Url.Action("Delete", "Settings", new { id = item.Id })"><i class='fa fa-times-circle alert-danger'></i>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
