@@ -14,6 +14,7 @@
     <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
     <script src="~/Scripts/components.js"></script>
+    <script src="~/Scripts/main.js"></script>
 
     <!-- Include the plugin's CSS and JS: -->
     <script src="~/Scripts/components.js"></script>
@@ -21,6 +22,35 @@
     <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
     <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" type="text/css" /> 
     <link href="~/Content/app.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".live-search-box").focus(function () {
+                $("#search-list").removeClass("list-close").slideDown(700);
+            });
+            $(".live-search-box").focusout(function () {
+                $("#search-list").addClass("list-close");
+            });
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $(".live-search-box").keyup(function () {
+                
+
+                var searchText = $(".live-search-box").val().toLowerCase();
+
+                $(".live-search-list li").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body class="login-body">
     <div class="wrapper">
@@ -63,10 +93,10 @@
                     <div class="col-md-4">
                         <ul class="list-inline quicklinks">
                             <li class="list-inline-item">
-                                <a href="#">Privacy Policy</a>
+                                <a href="#">Privacy policy</a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#">Terms of Use</a>
+                                <a href="#">Terms of use</a>
                             </li>
                         </ul>
                     </div>
@@ -76,6 +106,7 @@
         </footer>
     </div>
     @RenderSection("scripts", required: false)
+
     <!-- Initialize the plugin: -->
     <script type="text/javascript">
         // $('select[multiple]').multiSelect()

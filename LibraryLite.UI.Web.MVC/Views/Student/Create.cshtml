@@ -33,13 +33,22 @@
                     @Html.TextBoxFor(m => m.LastName, new { @class = "input", @placeholder = "Enter student number" })
                     <span class="input-focus"></span>
                 </div>
-
-
                 <div class="input-wrapper validate-input">
                     <span class="input-label">Assign class</span><br />
-                    @Html.DropDownList("ClassId", "- Select student -")
+                    @Html.DropDownList("ClassId", ViewBag.ClassId as IEnumerable<SelectListItem>, "- select class -", new {@id ="ClassId" })
                     <span class="input-focus"></span>
                 </div>
+                @*<div class="input-wrapper validate-input">
+                    <span class="input-label">Assign Class</span><br />
+                    @Html.TextBoxFor(m => m.ClassId, new { @class = "live-search-box", @placeholder = "Search class" })
+                    <ul id="search-list" class="live-search-list list-close">
+                        @foreach (var item in ViewBag.ClassId as IEnumerable<SelectListItem>)
+                        {
+                            <li id="@item.Value">@item.Text</li>
+                        }
+                    </ul>
+
+                </div>*@
                 <div class="form-container-form-btn">
                     <button class="form-btn">
                         <span>
@@ -52,9 +61,12 @@
         }
     </div>
 </div>
-<script src="~/Scripts/map-custom.js"></script>
-
-<script src="~/Scripts/main.js"></script>
 
 
+
+
+
+
+
+ 
 

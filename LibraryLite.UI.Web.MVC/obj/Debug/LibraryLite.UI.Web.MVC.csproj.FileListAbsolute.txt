@@ -67,3 +67,6 @@ J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\bin\Unity.RegistrationByConventi
 J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\bin\Unity.ServiceLocation.pdb
 J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\obj\Debug\LibraryLite.UI.Web.MVC.Migrations.ApplicationDbContext.resources
 J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\obj\Debug\LibraryLite.UI.Web.MVC.csproj.GenerateResource.Cache
+J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\bin\EntityFramework.SqlServer.dll
+J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\bin\EntityFramework.SqlServer.xml
+J:\DEVServer\LibraryLite\LibraryLite.UI.Web.MVC\obj\Debug\LibraryLite.UI.Web.MVC.Migrations.Seedsuperuser.resources

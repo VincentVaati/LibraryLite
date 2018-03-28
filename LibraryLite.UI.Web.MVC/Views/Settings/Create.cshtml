@@ -5,51 +5,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="form mx-auto">
-    <div class="form-header">
-        <h2>LibraryLite</h2>
-    </div>
-    <div class="form-body">
-        @using (Html.BeginForm("Create", "Settings", FormMethod.Post, new { @class = "form-horizontal register", role = "form" }))
+<div class="form-container">
+    <div class="form-wrapper">
+        @using (Html.BeginForm("Create", "Settings", FormMethod.Post, new { role = "form" }))
         {
-            @Html.AntiForgeryToken()
-            <p>Enter application settings</p>
-            @Html.ValidationSummary()
-            <div class="form-group">
-                @Html.LabelFor(m => m.InstitutionName, new { @class = "control-label" })
-                <div class="">
-                    @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
+            @*<button class="form-btn-hide">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                </button>*@
+
+            <form class="form validate-form">
+                <span class="form-title">
+                    Add settings
+                </span>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="input-wrapper validate-input" data-validate="Username is required">
+                    <span class="input-label">Institution name</span>
+                    @Html.TextBoxFor(m => m.InstitutionName, new { @class = "input", @placeholder = "Enter institution name" })
+                    <span class="input-focus"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.MaxBooksLoanable, new { @class = "control-label" })
-                <div class="">
-                    @Html.TextBoxFor(m => m.MaxBooksLoanable, new { @class = "form-control" })
+
+                <div class="input-wrapper validate-input" data-validate="Password is required">
+                    <span class="input-label">Maximum loanable books</span>
+                    @Html.TextBoxFor(m => m.MaxBooksLoanable, new { @class = "input", @placeholder = "Enter maximum loanable books" })
+                    <span class="input-focus"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.LoanDays, new { @class = "control-label" })
-                <div class="">
-                    @Html.TextBoxFor(m => m.LoanDays, new { @class = "form-control" })
+
+                <div class="input-wrapper validate-input" data-validate="Password confirmation is required">
+                    <span class="input-label">Loan days</span>
+                    @Html.TextBoxFor(m => m.LoanDays, new { @class = "input", @placeholder = "Enter maximum loan days" })
+                    <span class="input-focus"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Penalty, new { @class = "control-label" })
-                <div class="">
-                    @Html.TextBoxFor(m => m.Penalty, new { @class = "form-control" })
+                <div class="input-wrapper validate-input" data-validate="Password confirmation is required">
+                    <span class="input-label">Penalty</span>
+                    @Html.TextBoxFor(m => m.Penalty, new { @class = "input", @placeholder = "Enter penalty in (Ksh)" })
+                    <span class="input-focus"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="">
-                    <input type="submit" class="btn btn-block btn-primary" value="Save" />
+                <div class="form-container-form-btn">
+                    <button class="form-btn">
+                        <span>
+                            Add settings
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
                 </div>
-            </div>
+            </form>
         }
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
 
 

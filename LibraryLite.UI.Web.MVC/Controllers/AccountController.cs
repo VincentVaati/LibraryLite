@@ -435,7 +435,5 @@ namespace LibraryLite.UI.Web.MVC.Controllers
             }
         }
         #endregion
-
-       
     }
 }
