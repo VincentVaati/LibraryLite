@@ -12,6 +12,7 @@ namespace LibraryLite.UseCases.Interfaces
         IDbSet<BookInventory> BookInventories { get; set; }
         IDbSet<Student> Students { get; set; }
         IDbSet<StudentClass> StudentClasses { get; set; }
+        IDbSet<BookLoan> BookLoan { get; set; }
 
         DbEntityEntry Entry(object entity);
         Task<int> SaveChangesAsync();

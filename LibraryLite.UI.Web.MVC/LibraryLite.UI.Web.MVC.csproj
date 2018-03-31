@@ -207,14 +207,15 @@
     <Compile Include="Helpers\AuthenticationHelper.cs" />
     <Compile Include="Helpers\ClaimsHelper.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\Reports.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="Migrations\201803231136193_ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201803231136193_ApplicationDbContext.Designer.cs">
-      <DependentUpon>201803231136193_ApplicationDbContext.cs</DependentUpon>
+    <Compile Include="Migrations\201803291219360_initial migration.cs" />
+    <Compile Include="Migrations\201803291219360_initial migration.Designer.cs">
+      <DependentUpon>201803291219360_initial migration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803271217543_Seed super user.cs" />
-    <Compile Include="Migrations\201803271217543_Seed super user.Designer.cs">
-      <DependentUpon>201803271217543_Seed super user.cs</DependentUpon>
+    <Compile Include="Migrations\201803291247411_seed method.cs" />
+    <Compile Include="Migrations\201803291247411_seed method.Designer.cs">
+      <DependentUpon>201803291247411_seed method.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Presentation\ViewModels\ClassViewModel.cs" />
     <Compile Include="Presentation\ViewModels\BookLoanRequestViewModel.cs" />
     <Compile Include="Presentation\ViewModels\ReturnBookRequestViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\ReturnBookResponseViewModel.cs" />
     <Compile Include="Presentation\ViewModels\StudentViewModel.cs" />
     <Compile Include="Presentation\ViewModels\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -435,7 +437,7 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\BookLoan\Create.cshtml" />
     <Content Include="Views\BookLoan\Delete.cshtml" />
-    <Content Include="Views\BookLoan\Edit.cshtml" />
+    <Content Include="Views\BookLoan\ReturnBook.cshtml" />
     <Content Include="Views\BookLoan\Index.cshtml" />
     <Content Include="Views\Shared\_AuthenticatedMenuPartial.cshtml" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -469,11 +471,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803231136193_ApplicationDbContext.resx">
-      <DependentUpon>201803231136193_ApplicationDbContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803291219360_initial migration.resx">
+      <DependentUpon>201803291219360_initial migration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803271217543_Seed super user.resx">
-      <DependentUpon>201803271217543_Seed super user.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803291247411_seed method.resx">
+      <DependentUpon>201803291247411_seed method.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

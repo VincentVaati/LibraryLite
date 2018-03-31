@@ -13,7 +13,7 @@ namespace LibraryLite.UI.Web.MVC.Presentation.Mapping
                 Id = studentViewModel.Id,
                 StudentNumber = studentViewModel.StudentNumber,
                 FirstName = studentViewModel.FirstName,
-                LastName = studentViewModel.FirstName,
+                LastName = studentViewModel.LastName,
                 ClassId = studentViewModel.ClassId,
                 Class= studentViewModel.Class
             };
@@ -26,7 +26,7 @@ namespace LibraryLite.UI.Web.MVC.Presentation.Mapping
                 Id = student.Id,
                 StudentNumber = student.StudentNumber,
                 FirstName = student.FirstName,
-                LastName = student.FirstName,
+                LastName = student.LastName,
                 ClassId = student.ClassId,
                 Class = student.Class
             };

@@ -10,5 +10,6 @@ namespace LibraryLite.UI.Web.MVC.Helpers
         internal const string Admin = "Admin";
 
         internal const string User = "Staff";
+
     }
 }

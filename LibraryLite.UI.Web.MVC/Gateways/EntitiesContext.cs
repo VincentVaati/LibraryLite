@@ -18,6 +18,7 @@ namespace LibraryLite.UI.Web.MVC.Gateways
 
         public IDbSet<ApplicationSettings> ApplicationSettings { get; set; }
         public IDbSet<Book> Books { get; set; }
+        public IDbSet<BookLoan> BookLoan { get; set; }
         public IDbSet<BookInventory> BookInventories { get; set; }
         public IDbSet<Student> Students { get; set; }
         public IDbSet<StudentClass> StudentClasses { get; set; }
@@ -73,7 +74,5 @@ namespace LibraryLite.UI.Web.MVC.Gateways
                 .HasRequired(b => b.Book);
 
         }
-
-        public System.Data.Entity.DbSet<LibraryLite.Core.Entities.BookLoan> BookLoans { get; set; }
     }
 }

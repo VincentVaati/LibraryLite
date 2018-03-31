@@ -46,7 +46,9 @@
     <Compile Include="Dtos\BookLoanRequestMessage.cs" />
     <Compile Include="Dtos\BookLoanResponseMessage.cs" />
     <Compile Include="Dtos\BookReturnRequestMesage.cs" />
+    <Compile Include="Dtos\BookReturnResponseMessage.cs" />
     <Compile Include="Dtos\StudentBookLoan.cs" />
+    <Compile Include="Infrastructure\Filters.cs" />
     <Compile Include="Interactors\BookInteractor.cs" />
     <Compile Include="Interactors\ClassInteractor.cs" />
     <Compile Include="Interactors\RequestBookLoanInteractor.cs" />

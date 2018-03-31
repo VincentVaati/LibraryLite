@@ -7,13 +7,13 @@ namespace LibraryLite.UI.Web.MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Seedsuperuser : IMigrationMetadata
+    public sealed partial class seedmethod : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Seedsuperuser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(seedmethod));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803271217543_Seed super user"; }
+            get { return "201803291247411_seed method"; }
         }
         
         string IMigrationMetadata.Source

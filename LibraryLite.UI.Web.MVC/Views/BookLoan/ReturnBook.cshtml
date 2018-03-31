@@ -1,0 +1,51 @@
+﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.ReturnBookResponseViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-wrapper">
+        @using (Html.BeginForm())
+        {
+            @*<button class="form-btn-hide">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>*@
+
+            <form class="form validate-form">
+                <span class="form-title">
+                    Return book
+                </span>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="input-wrapper validate-input" data-validate="Return date is required">
+                    <span class="input-label">Date Returned</span><br />
+                    @Html.TextBoxFor(model => model.ReturnDate,"{0:dd/MM/yyyy}", new { @class="input" })
+                    <span class="input-focus"></span>
+                </div>
+                <div class="input-wrapper validate-input" data-validate="Due date is required">
+                    <span class="input-label">Due Date</span><br />
+                    @Html.TextBoxFor(model => model.DueDate, "{0:dd/MM/yyyy}", new { @class = "input" })
+                    <span class="input-focus"></span>
+                </div>
+                <div class="input-wrapper validate-input" data-validate="penalty is required">
+                    <span class="input-label">penalty</span><br />
+                    @Html.TextBoxFor(model => model.Penalty, new { @class="input"})
+                    <span class="input-focus"></span>
+                </div>
+                <div class="form-container-form-btn">
+                    <button class="form-btn">
+                        <span>
+                            return book
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <a href="@Url.Action("index","BookLoan")"><i class='fa fa-plus-circle'></i>Back to List</a>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+

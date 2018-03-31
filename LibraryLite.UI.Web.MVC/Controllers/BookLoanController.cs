@@ -14,9 +14,12 @@ using LibraryLite.UseCases.Interfaces;
 using LibraryLite.UseCases.Interactors;
 using LibraryLite.UseCases.Dtos;
 using System.Globalization;
+using LibraryLite.UI.Web.MVC.Helpers;
+using LibraryLite.UseCases.Infrastructure;
 
 namespace LibraryLite.UI.Web.MVC.Controllers
 {
+    
     [Authorize(Roles = "Admin,Staff")]
     public class BookLoanController : Controller
     {
@@ -24,7 +27,20 @@ namespace LibraryLite.UI.Web.MVC.Controllers
         private IBookInteractor _bookInteractor;
         public RequestBookLoanInteractor _requestBookLoanInteractor;
         public RequestBookReturnInteractor _requestBookReturnInteractor;
-             
+        private IList<Student> Students
+        {
+            get
+            {
+                return _studentInteractor.FindAllStudents();
+            }
+        }
+        private IList<Book> Books
+        {
+            get
+            {
+                return _bookInteractor.FindAllBooks();
+            }
+        }
         public BookLoanController() { }
         public BookLoanController(IStudentInteractor studentInteractor, IBookInteractor bookInteractor, RequestBookLoanInteractor requestBookLoanInteractor, RequestBookReturnInteractor requestBookReturnInteractor)
         {
@@ -35,13 +51,79 @@ namespace LibraryLite.UI.Web.MVC.Controllers
         }
         public ActionResult Index()
         {
-            var students = _studentInteractor.FindAllStudents();
-            var books = _bookInteractor.FindAllBooks();
-
-            ViewBag.StudentsSelectionList = new SelectList(students, "Id", "FirstName");
-            ViewBag.BooksSelectionList = new SelectList(books, "Id", "BookTitle");
+            ViewBag.StudentSelectionList = new SelectList(Students.Select(s => new { Id = s.Id, Name = s.FirstName + " " + s.LastName }), "Id", "Name");
+            ViewBag.BookSelectionList = new SelectList(Books.Select(b => new { Id = b.Id, BookTitle = b.BookTitle }), "Id", "BookTitle");
+            ViewBag.Reports = new SelectList(EnumHelper.ToSelectList<Report>(new Report()), "Value", "Text");
+            ViewBag.Months = new SelectList(EnumHelper.ToSelectList<Months>(new Months()), "Value", "Text");
 
             return View();
+        }
+        public JsonResult GetLoans(int? id)
+        {
+            IList<StudentBookLoan> studentBookLoans = new List<StudentBookLoan>();
+            if (!id.HasValue)
+                id = 0;
+            if (id == 1)
+            {
+                foreach (var student in Students)
+                {
+                    foreach (var loan in student.BookLoans)
+                    {
+                        //Get late loans only
+                        if(DateTime.Now.Date > loan.DueDate && loan.DateReturned ==null)
+                        {
+                            var x = new StudentBookLoan()
+                            {
+                                FirstName = student.FirstName ,
+                                LastName = student.LastName,
+                                BookTitle = loan.Book.BookTitle,
+                                DateOfIssue = loan.DateOfIssue.ToString("dd/mm/yyyy"),
+                                DueDate = loan.DueDate.ToString("dd/mm/yyyy"),
+                                DateReturned = loan.DateReturned.ToString()
+                            };
+
+                            studentBookLoans.Add(x);
+                        }
+                    }
+                }
+            }
+            else if (id == 2)
+            {
+                foreach (var student in Students)
+                {
+                    foreach (var loan in student.BookLoans)
+                    {
+                        if(loan.DateReturned!= null && loan.DateReturned > loan.DueDate )
+                        {
+                            var x = new StudentBookLoan()
+                            {
+                                FirstName = student.FirstName ,
+                                LastName = student.LastName,
+                                BookTitle = loan.Book.BookTitle,
+                                Penalty =loan.Penalty
+                            };
+                        }
+                    }
+                }
+            }
+            return Json(studentBookLoans, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBookLoansbyMonth(ReportFilter filter)
+        {
+            var loans = _requestBookLoanInteractor.GetBookLoanPenaltyBy(filter);
+            IList<StudentBookLoan> loansList = new List<StudentBookLoan>();
+            foreach (var loan in loans)
+            {
+                var x = new StudentBookLoan()
+                {
+                    FirstName = loan.Student.FirstName,
+                    LastName = loan.Student.LastName,
+                    BookTitle = loan.Book.BookNumber,
+                    Penalty = loan.Penalty,
+                };
+                loansList.Add(x);
+            }
+            return Json(loansList, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetBookLoans(int? id)
         {
@@ -59,7 +141,9 @@ namespace LibraryLite.UI.Web.MVC.Controllers
                     {
                         var x = new StudentBookLoan()
                         {
-                            Name = student.FirstName + " " + student.LastName,
+                            Id = loan.Id,
+                            FirstName = student.FirstName,
+                            LastName = student.LastName,
                             BookTitle = loan.Book.BookTitle,
                             DateOfIssue = loan.DateOfIssue.ToString("dd/mm/yyyy"),
                             DueDate = loan.DueDate.ToString("dd/mm/yyyy"),
@@ -77,7 +161,9 @@ namespace LibraryLite.UI.Web.MVC.Controllers
                 {
                     var x = new StudentBookLoan()
                         {
-                            Name = student.FirstName + " " + student.LastName,
+                            Id = loan.Id,
+                            FirstName = student.FirstName,
+                            LastName = student.LastName,
                             BookTitle = loan.Book.BookTitle,
                             DateOfIssue = loan.DateOfIssue.ToString("dd/mm/yyyy", CultureInfo.CurrentCulture),
                             DueDate = loan.DueDate.ToString("dd/mm/yyyy", CultureInfo.CurrentCulture),
@@ -94,9 +180,16 @@ namespace LibraryLite.UI.Web.MVC.Controllers
         //GET: /BookLoan/Create
         public ActionResult Create()
         {
-            ViewBag.BookId = new SelectList(_bookInteractor.FindAllBooks(), "Id", "BookNumber");
-            ViewBag.StudentId = new SelectList(_studentInteractor.FindAllStudents(), "Id", "StudentNumber");
-            return View();
+
+            ViewBag.StudentSelectionList = new SelectList(Students.Select(s => new { Id = s.Id, Name = s.FirstName + " " + s.LastName }), "Id", "Name");
+            ViewBag.BookSelectionList = new SelectList(Books.Select(b => new { Id = b.Id, BookTitle = b.BookTitle }), "Id", "BookTitle");
+
+            var view = new BookLoanRequestViewModel();
+            var dueDate = DateTime.Now.Date.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture);
+            view.DateOfIssue = Convert.ToDateTime(dueDate);
+            view.DueDate = _requestBookLoanInteractor.CalculateDueDate();
+
+            return View(view);
         }
 
         // POST: /BookLoan/Create
@@ -108,24 +201,48 @@ namespace LibraryLite.UI.Web.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (bookLoanRequestViewModel.DueDate < DateTime.Now.Date)
+                    ModelState.AddModelError("PreviousDate", "Due date cannot be in the past");
+
+                if (bookLoanRequestViewModel.DueDate != _requestBookLoanInteractor.CalculateDueDate())
+                    ModelState.AddModelError("Duedate", "Wrong due date");
+
                 _requestBookLoanInteractor.Handle(BookLoanMapperExtensionMethods.ConvertToBookLoan(bookLoanRequestViewModel));
 
                 return RedirectToAction("Index");
             }
 
 
-            ViewBag.BookId = new SelectList(bookLoanRequestViewModel.Books, "Id", "BookNumber", bookLoanRequestViewModel.BookId);
-            ViewBag.StudentId = new SelectList(bookLoanRequestViewModel.Students, "Id", "StudentNumber", bookLoanRequestViewModel.StudentId);
+            ViewBag.BookSelectList = new SelectList(bookLoanRequestViewModel.Books, "Id", "BookTitle");
+            ViewBag.StudentSelectList = new SelectList(bookLoanRequestViewModel.Students, "Id", "FirstName");
             return View(bookLoanRequestViewModel);
         }
 
-        public ActionResult ReturnBook(int id) 
+        public ActionResult Returnbook(int? id)
         {
+            var vm = new ReturnBookResponseViewModel();
+            vm.ReturnDate = DateTime.Now.Date;
+            vm.DueDate = _requestBookReturnInteractor.GetDueDate(id.Value);
 
-            var bookReturnRequestMesage = new BookReturnRequestMesage(id);
-            _requestBookReturnInteractor.Handle(bookReturnRequestMesage);
+            var bookReturnRequestMesage = new BookReturnRequestMesage(id.Value);
+            if (_requestBookReturnInteractor.IsLateLoan(id.Value))
+            {
+                vm.Penalty = _requestBookReturnInteractor.CalculatePenalty(id.Value);
+            }
+            return View(vm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReturnBook(ReturnBookResponseViewModel vm) 
+        {
+            if (ModelState.IsValid)
+            {
+                var bookReturnRequestMesage = new BookReturnRequestMesage(vm.Id);
+                _requestBookReturnInteractor.Handle(bookReturnRequestMesage);
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index");
+            return View(vm);
         }
     }
 }

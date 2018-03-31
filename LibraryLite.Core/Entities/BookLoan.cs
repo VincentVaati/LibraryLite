@@ -13,6 +13,7 @@ namespace LibraryLite.Core.Entities
         public DateTime DateOfIssue { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? DateReturned { get; set; }
+        public decimal? Penalty { get; set; }
         public virtual Book Book { get; set; }
         public virtual Student Student { get; set; }
 
@@ -31,6 +32,5 @@ namespace LibraryLite.Core.Entities
         {
             return DateTime.Now.Date > DueDate.Date;
         }
-
     }
 }

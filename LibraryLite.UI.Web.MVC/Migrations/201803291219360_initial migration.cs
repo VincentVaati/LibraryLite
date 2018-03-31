@@ -3,7 +3,7 @@ namespace LibraryLite.UI.Web.MVC.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ApplicationDbContext : DbMigration
+    public partial class initialmigration : DbMigration
     {
         public override void Up()
         {
@@ -32,27 +32,6 @@ namespace LibraryLite.UI.Web.MVC.Migrations
                 .Index(t => t.IdentityUser_Id);
             
             CreateTable(
-                "dbo.User",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Email = c.String(maxLength: 256),
-                        EmailConfirmed = c.Boolean(nullable: false),
-                        PasswordHash = c.String(),
-                        SecurityStamp = c.String(),
-                        PhoneNumber = c.String(),
-                        PhoneNumberConfirmed = c.Boolean(nullable: false),
-                        TwoFactorEnabled = c.Boolean(nullable: false),
-                        LockoutEndDateUtc = c.DateTime(),
-                        LockoutEnabled = c.Boolean(nullable: false),
-                        AccessFailedCount = c.Int(nullable: false),
-                        UserName = c.String(nullable: false, maxLength: 256),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-            
-            CreateTable(
                 "dbo.UserClaim",
                 c => new
                     {
@@ -65,6 +44,26 @@ namespace LibraryLite.UI.Web.MVC.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.User", t => t.IdentityUser_Id)
                 .Index(t => t.IdentityUser_Id);
+            
+            CreateTable(
+                "dbo.User",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Email = c.String(),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        UserName = c.String(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.UserLogin",
@@ -89,13 +88,12 @@ namespace LibraryLite.UI.Web.MVC.Migrations
             DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
             DropIndex("dbo.UserLogin", new[] { "IdentityUser_Id" });
             DropIndex("dbo.UserClaim", new[] { "IdentityUser_Id" });
-            DropIndex("dbo.User", "UserNameIndex");
             DropIndex("dbo.UserRole", new[] { "IdentityUser_Id" });
             DropIndex("dbo.UserRole", new[] { "RoleId" });
             DropIndex("dbo.Role", "RoleNameIndex");
             DropTable("dbo.UserLogin");
-            DropTable("dbo.UserClaim");
             DropTable("dbo.User");
+            DropTable("dbo.UserClaim");
             DropTable("dbo.UserRole");
             DropTable("dbo.Role");
         }

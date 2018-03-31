@@ -1,5 +1,5 @@
 ﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.BookLoanRequestViewModel
-
+@using System.Globalization
 @{
     ViewBag.Title = "Loan book";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,26 +20,26 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
                 <div class="input-wrapper validate-input" data-validate="Sudent is required">
-                    <span class="input-label">Student</span>
-                    @Html.DropDownList("StudentId", String.Empty)
+                    <span class="input-label">Student name</span><br />
+                    @Html.DropDownList("StudentId", ViewBag.StudentSelectionList as IEnumerable<SelectListItem>, "-select student", new { @class = "input" })
                     <span class="input-focus"></span>
                 </div>
 
                 <div class="input-wrapper validate-input" data-validate="Book to loan is required">
-                    <span class="input-label">Book name</span>
-                    @Html.DropDownList("BookId", String.Empty)
+                    <span class="input-label">Book name</span><br />
+                    @Html.DropDownList("BookId", ViewBag.BookSelectionList as IEnumerable<SelectListItem>,"-select book", new { @class = "input" })
                     <span class="input-focus"></span>
                 </div>
 
-                <div class="input-wrapper validate-input" data-validate="Date of issue is rquired">
-                    <span class="input-label">Date of issue</span>
-                    <input id="DateOfIssue" name="DateOfIssue" type="date" class="input" />
+                <div class="input-wrapper validate-input" data-validate="Date of issue is required">
+                    <span class="input-label">Date of issue</span><br />
+                    @Html.TextBoxFor(m => m.DateOfIssue,"{0:dd/MM/yyyy}", new {@class="input"})
                     <span class="input-focus"></span>
                 </div>
 
                 <div class="input-wrapper validate-input">
                     <span class="input-label">Due date</span><br />
-                    <input id="DueDate" name="DueDate" type="date" class="form-control" />
+                    @Html.TextBoxFor(m => m.DueDate, "{0:dd/MM/yyyy}", new { @class = "input" })
                     <span class="input-focus"></span>
                 </div>
                 <div class="form-container-form-btn">

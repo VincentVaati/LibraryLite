@@ -6,14 +6,32 @@
 }
 
 <div class="list">
-  
     <div class="form-group">
-        @Html.Label("Filter loans by student", "Filter book loans by student", new { @class = "control-label" })
-        <div class="col-md-3 ">
-            @Html.DropDownList("Filter by student", ViewBag.StudentsSelectionList as IEnumerable<SelectListItem>, "- All book loans -", new { @id = "studentId", @class = "form-control" })
+        <div class="row">
+            <div class="col-md-3">
+                <p>Filter loans by student</p>
+                @Html.DropDownList("Filter by student", ViewBag.StudentSelectionList as IEnumerable<SelectListItem>, "- All book loans -", new { @id = "studentId", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                <p>View reports</p>
+                @Html.DropDownList("View reports", ViewBag.Reports as IEnumerable<SelectListItem>, "- Reports -", new { @id = "reportId", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                <p>Filter reports by date</p>
+                <input type="date" class="form-control" id="date" >
+            </div>
+            <div class="col-md-3">
+                <p>Filter reports by month</p>
+                @Html.DropDownList("Reports filter", ViewBag.Months as IEnumerable<SelectListItem>, "- All months -", new { @id = "monthId", @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                <p>Year</p>
+                <input id="year" name="year" type="number" min="1900" max="2099" step="1" value="2018"  class="form-control"/>
+            </div>
+           
         </div>
     </div>
-        <h2>Book loans</h2>
+    <h2>Book loans</h2>
     <p>View,add new or change existing book loan information</p>
     <a href="@Url.Action("Create","BookLoan")"><i class='fa fa-plus-circle'></i>Loan book</a>
 
@@ -31,9 +49,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DueDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReturnDate)
                 </th>
                 <th></th>
             </tr>
@@ -70,14 +85,13 @@
         success: function (data) {
             ($('#tableId tbody').empty());
             var items = "";
-            var isBookReturned;
             $.each(data, function (i, item) {
                 var rows = "<tr>"
-                + "<td>" + item.Name + "</td>"
+                + "<td>" + item.FirstName + "</td>"
+                + "<td>" + item.LastName + "</td>"
                 + "<td>" + item.BookTitle + "</td>"
                 + "<td>" + item.DateOfIssue + "</td>"
                 + "<td>" + item.DueDate + "</td>"
-                + "<td>" + isBookReturned + "</td>"
                 + '<td><a href=\"' + deleteUrl +"/"+ item.Id +'"><i class="fa fa-edit"></i>Return book</a></td>'
                 + "</tr>"
                 $('#tableId tbody').append(rows);
@@ -85,6 +99,79 @@
         },
         error: function (ex) {
             var r = ex.responseText;
+        }
+    });
+    $("#monthId").on("change", function () {
+
+        var filterViewModel = {
+            MonthId: $("#monthId").val(),
+            Year: $("#year").val(),
+            Date: $("#date").val()
+        };
+
+        
+
+        ($('#tableId tbody').empty());
+
+            $.ajax({
+                url: '@Url.Action("GetBookLoansbyMonth")',
+                verb: 'POST',
+                data: filterViewModel,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var items = "";
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>"
+                        + "<td>" + item.FirstName + "</td>"
+                        + "<td>" + item.LastName + "</td>"
+                        + "<td>" + item.BookTitle + "</td>"
+                        + "<td>" + item.DateOfIssue + "</td>"
+                        + "<td>" + item.Penalty + "</td>"
+                        + '<td><a href=\"' + deleteUrl + "/" + item.Id + '"><i class="fa fa-edit"></i>Return book</a></td>'
+                        + "</tr>"
+                        $('#tableId tbody').append(rows);
+                    });
+                },
+                error: function (ex) {
+                    var r = ex.responseText;
+                    //alert("Message: " + r.Message);
+                    //alert("StackTrace: " + r.StackTrace);
+                    //alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+    });
+    $("#reportId").on("change", function () {
+        var reportId = $("#reportId").val();
+        ($('#tableId tbody').empty());
+
+        if (reportId != null || reportId != "") {
+            $.ajax({
+                url: '@Url.Action("GetLoans")',
+                verb: 'POST',
+                dataType: 'json',
+                data: { id: $("#reportId").val() },
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var items = "";
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>"
+                        + "<td>" + item.FirstName + "</td>"
+                        + "<td>" + item.LastName + "</td>"
+                        + "<td>" + item.BookTitle + "</td>"
+                        + "<td>" + item.DateOfIssue + "</td>"
+                        + "<td>" + item.DueDate + "</td>"
+                        + '<td><a href=\"' + deleteUrl + "/" + item.Id + '"><i class="fa fa-edit"></i>Return book</a></td>'
+                        + "</tr>"
+                        $('#tableId tbody').append(rows);
+                    });
+                },
+                error: function (ex) {
+                    var r = ex.responseText;
+                    //alert("Message: " + r.Message);
+                    //alert("StackTrace: " + r.StackTrace);
+                    //alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
         }
     });
     $("#studentId").change(function () {
@@ -110,7 +197,8 @@
                             isBookReturned = "Returned";
                         }
                         var rows = "<tr>"
-                        + "<td>" + item.Name + "</td>"
+                        + "<td>" + item.FirstName + "</td>"
+                        + "<td>" + item.LastName + "</td>"
                         + "<td>" + item.BookTitle + "</td>"
                         + "<td>" + item.DateOfIssue + "</td>"
                         + "<td>" + item.DueDate + "</td>"

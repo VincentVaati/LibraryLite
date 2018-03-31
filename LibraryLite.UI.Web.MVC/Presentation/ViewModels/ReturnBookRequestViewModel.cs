@@ -27,6 +27,6 @@ namespace LibraryLite.UI.Web.MVC.Presentation.ViewModels
         [Required]
         [Display(Name = "Date Returned")]
         public DateTime DateReturned { get; set; }
-        
+        public decimal Penalty { get; set; }
     }
 }

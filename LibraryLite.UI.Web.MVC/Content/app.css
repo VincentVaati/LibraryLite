@@ -1,7 +1,4 @@
 ﻿
-
-
-
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -1105,7 +1102,7 @@ iframe {
 
 
 
-/*//////////////////////////////////////////////////////////////////
+/*--------------------------------------------  
 [ Forms ]*/
 
 .form-container{
@@ -1122,8 +1119,8 @@ iframe {
   padding: 15px;
   background: transparent;
   position: relative;
-  z-index: 1;
-  margin-top: -70px
+  margin-top: -70px;
+  margin-bottom: 70px
 }
 
 
@@ -1203,8 +1200,9 @@ iframe {
   font-family: Poppins-SemiBold;
   color: #555555;
   line-height: 1.2;
-  padding: 0 5px;
+  padding: 2px 5px;
 }
+
 input[type="password" i],.multiselect.btn,.input{
      letter-spacing: 0.02em;
           font-size: 9pt;
