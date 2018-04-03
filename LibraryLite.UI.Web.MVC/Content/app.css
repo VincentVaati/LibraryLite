@@ -1,24 +1,16 @@
 ﻿
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
-}
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
+/*---------------------------------------------------
+  Restyle tag*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+	    margin: 0px; 
+	   padding: 0px; 
+	box-sizing: border-box
 }
 
 body, html {
-	height: 100%;
-	color: rgb(102, 102, 102);
+	     height: 100%;
+	      color: rgb(102, 102, 102);
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -27,17 +19,15 @@ select{
        border: 0px solid rgba(0,0,0,0.3);
         color: #555555
 }
-/*---------------------------------------------*/
+/*---------------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
+	         font-size: 14px;
+	       line-height: 1.7;
+  	            margin: 0px;
+	        transition: all 0.4s;
 	-webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
+         -o-transition: all 0.4s;
+       -moz-transition: all 0.4s;
 }
 
 a:focus {
@@ -49,11 +39,12 @@ a:hover {
 }
 
 .form-container-form-btn a{
-    margin-top: 4px
+     margin-top: 4px;
+    padding-top: 3px;
 }
 .navbar-nav .nav-item .nav-link.active,.navbar-nav .nav-item .nav-link:hover ,a.navbar-brand:hover,
 .navbar-nav .nav-item .nav-link.active,.navbar-nav .nav-item .nav-link:hover{
-  color: #fed136;
+    color: #fed136;
 }
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
@@ -61,22 +52,22 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
-    font-size: 12px;
-    line-height: 2;
-    color: #666666;
-    margin: 0px;
-    margin-top: 5px;
+      font-family: Poppins-Regular;
+        font-size: 12px;
+      line-height: 2;
+            color: #666666;
+           margin: 0px;
+       margin-top: 5px;
     margin-bottom: 10px;
 }
 
 ul, li {
-	margin: 0px;
+	         margin: 0px;
 	list-style-type: none;
 }
 
 /*---------------------------------------------
-    Containers  */
+    Containers   */
 .wrapper::after {
     clear: both;
 }
@@ -1291,6 +1282,7 @@ textarea.input {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 
+  margin-right: 10px;
   /*box-shadow: 0 10px 30px 0px rgba(255, 75, 90, 0.5);
   -moz-box-shadow: 0 10px 30px 0px rgba(255, 75, 90, 0.5);
   -webkit-box-shadow: 0 10px 30px 0px rgba(255, 75, 90, 0.5);
@@ -1557,6 +1549,7 @@ textarea.input {
 
 /*--------------------------------------------------
     LISTS*/
+
 .search-list{
     display: none;
 }
