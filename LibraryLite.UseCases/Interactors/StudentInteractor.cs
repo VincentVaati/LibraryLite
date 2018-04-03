@@ -29,13 +29,39 @@ namespace LibraryLite.UseCases.Interactors
         }
         public IList<Student> FindAllStudents()
         {
-            var students = _studentEntityRepository.GetAll().ToList();
+            return _studentEntityRepository.GetAll().ToList();
+        }
+        public IQueryable<Student> GetStudentsLoans()
+        {
+            var students = _studentEntityRepository.GetAll();
             var studentLoans = _bookLoanEntityRepository.GetAll();
+
             foreach (var student in students)
             {
                 student.BookLoans = studentLoans.Where(s => s.StudentId == student.Id).ToList();
             }
             return students ;
+        }
+        public IList<Student> GetCurrentStudentsLoans()
+        {
+            var currentStudentsLoans = GetStudentsLoans().Select(s => new {
+                Id=s.Id,
+                FirstName =s.LastName,
+                StudentNumber =s.StudentNumber,
+                BookLoans = s.BookLoans.Where(l => l.DateReturned == null).ToList()
+            }).ToList();
+            return (IList<Student>)currentStudentsLoans;
+        }
+        public IList<Student> GetPendingStudentsLoans()
+        {
+            var currentStudentsLoans = GetStudentsLoans().Select(s => new
+            {
+                Id = s.Id,
+                FirstName = s.LastName,
+                StudentNumber = s.StudentNumber,
+                BookLoans = s.BookLoans.Where(l => l.DateReturned == null && l.IsAlateReturn() ==true).ToList()
+            }).ToList();
+            return (IList<Student>)currentStudentsLoans;
         }
         public void Add(Student entity)
         {

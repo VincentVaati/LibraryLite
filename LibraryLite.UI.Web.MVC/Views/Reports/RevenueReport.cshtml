@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LibraryLite.UI.Web.MVC.Presentation.ViewModels.PenaltyRevenueViewModel>
+@{
+    ViewBag.Title = "Penalty Revenue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="list">
+    <div class="form-group">
+        
+    <fieldset title="Fileters">
+        <div class="row">
+            <div class="col-md-4">
+                <p>Date</p>
+                <input type="date" class="form-control" id="date">
+            </div>
+            <div class="col-md-4">
+                <p>Month</p>
+                @Html.DropDownList("Reports filter", ViewBag.Months as IEnumerable<SelectListItem>, "- All months -", new { @id = "monthId", @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                <p>Year</p>
+                <input id="year" name="year" type="number" min="1900" max="2099" step="1" value="2018" class="form-control" />
+            </div>
+        </div>
+    </fieldset>
+            
+    </div>
+    <h2>Revenue report</h2>
+    <p>View revenue earned from book loan penalties</p>
+    <table id="tableId" class="search table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("First name")
+                </th>
+                <th>
+                    @Html.DisplayName("Last name")
+                </th>
+                <th>
+                    @Html.DisplayName("Due date")
+                </th>
+                <th>
+                    @Html.DisplayName("Return date")
+                </th>
+                <th>
+                    @Html.DisplayName("Penalty")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+

@@ -55,7 +55,7 @@ namespace LibraryLite.UseCases.Interactors
 
             return dueDate;
         }
-        public IList<BookLoan> GetBookLoanPenaltyBy(ReportFilter filter)
+        public IList<BookLoan> GetBookLoanPenaltyBy(ApplicationFilter filter)
         {
             
             var bookLoansByMonth = _bookLoanEntityRepository.GetAll().Where(l => l.DateReturned.Value.Month == filter.MonthId && l.DateReturned.Value.Year==filter.Year).ToList();

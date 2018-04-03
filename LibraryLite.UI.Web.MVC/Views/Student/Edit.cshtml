@@ -24,17 +24,16 @@
                     @Html.TextBoxFor(m => m.StudentNumber, new { @class = "input", @placeholder = "Enter student number" })
                     <span class="input-focus"></span>
                 </div>
-                <div class="input-wrapper validate-input" data-validate="Username is required">
+                <div class="input-wrapper validate-input" data-validate="First name is required">
                     <span class="input-label">First name</span>
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "input", @placeholder = "Enter student number" })
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "input", @placeholder = "Enter student first name" })
                     <span class="input-focus"></span>
                 </div>
-                <div class="input-wrapper validate-input" data-validate="Username is required">
+                <div class="input-wrapper validate-input" data-validate="Last name is required">
                     <span class="input-label">Last name</span>
-                    @Html.TextBoxFor(m => m.LastName, new { @class = "input", @placeholder = "Enter student number" })
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "input", @placeholder = "Enter student last name" })
                     <span class="input-focus"></span>
                 </div>
-
                 <div class="input-wrapper validate-input">
                     <span class="input-label">Assign class</span><br />
                     @Html.DropDownList("ClassId", string.Empty)

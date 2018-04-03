@@ -1,5 +1,6 @@
 ﻿@model LibraryLite.UI.Web.MVC.Presentation.ViewModels.BookLoanRequestViewModel
 @using System.Globalization
+
 @{
     ViewBag.Title = "Loan book";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +8,7 @@
 
 <div class="form-container">
     <div class="form-wrapper">
-        @using (Html.BeginForm("Create", "BookLoan", FormMethod.Post, new { @class = "form-horizontal register", role = "form" }))
+        @using (Html.BeginForm("Create", "BookLoan", FormMethod.Post, new { @class = "form-horizontal ", role = "form" }))
         {
             @*<button class="form-btn-hide">
                 <i class="fa fa-close" aria-hidden="true"></i>
@@ -32,14 +33,14 @@
                 </div>
 
                 <div class="input-wrapper validate-input" data-validate="Date of issue is required">
-                    <span class="input-label">Date of issue</span><br />
+                    <span class="input-label ">Date of issue</span><br />
                     @Html.TextBoxFor(m => m.DateOfIssue,"{0:dd/MM/yyyy}", new {@class="input"})
                     <span class="input-focus"></span>
                 </div>
 
                 <div class="input-wrapper validate-input">
                     <span class="input-label">Due date</span><br />
-                    @Html.TextBoxFor(m => m.DueDate, "{0:dd/MM/yyyy}", new { @class = "input" })
+                    @Html.TextBoxFor(m => m.DueDate, "{0:dd/MM/yyyy}", new { @class = "input"})
                     <span class="input-focus"></span>
                 </div>
                 <div class="form-container-form-btn">

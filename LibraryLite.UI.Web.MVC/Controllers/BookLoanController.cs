@@ -108,7 +108,7 @@ namespace LibraryLite.UI.Web.MVC.Controllers
             }
             return Json(studentBookLoans, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetBookLoansbyMonth(ReportFilter filter)
+        public JsonResult GetBookLoansbyMonth(ApplicationFilter filter)
         {
             var loans = _requestBookLoanInteractor.GetBookLoanPenaltyBy(filter);
             IList<StudentBookLoan> loansList = new List<StudentBookLoan>();
@@ -127,7 +127,7 @@ namespace LibraryLite.UI.Web.MVC.Controllers
         }
         public JsonResult GetBookLoans(int? id)
         {
-            var students = _studentInteractor.FindAllStudents().ToList();
+            var students = _studentInteractor.GetStudentsLoans().ToList();
             var books = _bookInteractor.FindAllBooks();
 
             IList<StudentBookLoan> studentBookLoans  = new List<StudentBookLoan>();
@@ -139,18 +139,21 @@ namespace LibraryLite.UI.Web.MVC.Controllers
                 {
                     foreach (var loan in student.BookLoans)
                     {
-                        var x = new StudentBookLoan()
+                        if (loan.DateReturned == null)
                         {
-                            Id = loan.Id,
-                            FirstName = student.FirstName,
-                            LastName = student.LastName,
-                            BookTitle = loan.Book.BookTitle,
-                            DateOfIssue = loan.DateOfIssue.ToString("dd/mm/yyyy"),
-                            DueDate = loan.DueDate.ToString("dd/mm/yyyy"),
-                            DateReturned = loan.DateReturned.ToString()
-                        };
+                            var x = new StudentBookLoan()
+                            {
+                                Id = loan.Id,
+                                FirstName = student.FirstName,
+                                LastName = student.LastName,
+                                BookTitle = loan.Book.BookTitle,
+                                DateOfIssue = loan.DateOfIssue.ToString("dd/mm/yyyy"),
+                                DueDate = loan.DueDate.ToString("dd/mm/yyyy"),
+                                DateReturned = loan.DateReturned.ToString()
+                            };
 
-                        studentBookLoans.Add(x);
+                            studentBookLoans.Add(x);
+                        }
                     }
                 }
             }
@@ -211,7 +214,6 @@ namespace LibraryLite.UI.Web.MVC.Controllers
 
                 return RedirectToAction("Index");
             }
-
 
             ViewBag.BookSelectList = new SelectList(bookLoanRequestViewModel.Books, "Id", "BookTitle");
             ViewBag.StudentSelectList = new SelectList(bookLoanRequestViewModel.Students, "Id", "FirstName");
