@@ -4,9 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="list">
-    <div class="form-group">
-        
-    <fieldset title="Fileters">
+    <fieldset>
+        <legend> Filters</legend>
         <div class="row">
             <div class="col-md-4">
                 <p>Date</p>
@@ -20,10 +19,18 @@
                 <p>Year</p>
                 <input id="year" name="year" type="number" min="1900" max="2099" step="1" value="2018" class="form-control" />
             </div>
-        </div>
+            </div>
+            <div style="width: 400px">
+                <div class="form-container-form-btn align-content-center">
+                    <button id="loadReport" type="submit" class="form-btn">
+                        <span>
+                            Load Report
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
     </fieldset>
-            
-    </div>
     <h2>Revenue report</h2>
     <p>View revenue earned from book loan penalties</p>
     <table id="tableId" class="search table">
@@ -41,7 +48,7 @@
                 <th>
                     @Html.DisplayName("Return date")
                 </th>
-                <th>
+                <th class="sum">
                     @Html.DisplayName("Penalty")
                 </th>
                 <th></th>
@@ -50,5 +57,11 @@
         <tbody></tbody>
     </table>
 </div>
-
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadReport();
+        $("#loadReport").on("click", function () {
+            loadReport();
+        });
+    });
+</script>

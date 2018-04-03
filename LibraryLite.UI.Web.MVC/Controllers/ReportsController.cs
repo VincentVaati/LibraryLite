@@ -26,12 +26,21 @@ namespace LibraryLite.UI.Web.MVC.Controllers
 
             return View();
         }
+
         public JsonResult GetRevenueReport(ApplicationFilter filter)
         {
             var students = _studentInteractor.GetStudentsLoans().ToList();
-            var penaltyRevenueViewModelList = ReportsMapperExtensionMethods.ConvertToPenaltyRevenueViewModelList(students);
 
-            return Json(penaltyRevenueViewModelList,JsonRequestBehavior.AllowGet);
+            var penaltyRevenueViewModelList = ReportsMapperExtensionMethods.ConvertToPenaltyRevenueViewModelList(students);
+            //Filter by month
+            if (filter.Date == Convert.ToDateTime("01/01/0001 00:00:00") && filter.MonthId > 0)
+                return Json(penaltyRevenueViewModelList.Where(f => f.DateReturned.Month == filter.MonthId && f.DateReturned.Year == filter.Year).ToList(), JsonRequestBehavior.AllowGet);
+            // filter by date
+            if (filter.Date != Convert.ToDateTime("01/01/0001 00:00:00") && filter.MonthId == 0)
+                return Json(penaltyRevenueViewModelList.Where(f => f.DateReturned == filter.Date && f.DateReturned.Year == filter.Year).ToList(), JsonRequestBehavior.AllowGet);
+            var result = penaltyRevenueViewModelList.Where(f => f.DateReturned.Year == filter.Year);
+
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetPenaltyRevenueReport(ApplicationFilter filter)
         {

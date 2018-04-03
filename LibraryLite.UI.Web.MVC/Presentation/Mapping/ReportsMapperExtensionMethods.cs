@@ -19,7 +19,7 @@ namespace LibraryLite.UI.Web.MVC.Presentation.Mapping
                     foreach (var loan in student.BookLoans)
                     {
                         //Get loans with penalties
-                        if (loan.Penalty.Value >0)
+                        if (loan.Penalty.HasValue)
                         {
                             var penaltyRevenueViewModel = new PenaltyRevenueViewModel
                             {

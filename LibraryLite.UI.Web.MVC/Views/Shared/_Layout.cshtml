@@ -15,7 +15,7 @@
     <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
     <script src="~/Scripts/components.js"></script>
     <script src="~/Scripts/main.js"></script>
-
+    <script src="~/Scripts/app.js"></script>
     <!-- Include the plugin's CSS and JS: -->
     <script src="~/Scripts/components.js"></script>
 
@@ -23,93 +23,6 @@
     <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" type="text/css" /> 
     <link href="~/Content/app.css" rel="stylesheet" />
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $.ajax({
-                url: '@Url.Action("GetRevenueReport")',
-                verb: 'POST',
-               
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    var items = "";
-
-                    $.each(data, function (i, item) {
-                       
-                        var convertJSONDate = function (jsonDate) {
-                            var date = new Date(parseInt(jsonDate.substr(6)));
-                            var dd = date.getDate();
-                            var mm = date.getMonth() + 1; //January is 0!
-
-                            var yyyy = date.getFullYear();
-                            if (dd < 10) {
-                                dd = '0' + dd;
-                            }
-                            if (mm < 10) {
-                                mm = '0' + mm;
-                            }
-                            var formatedDate = dd + '/' + mm + '/' + yyyy;
-
-                            return formatedDate;
-                        }
- 
-                        var rows = "<tr>"
-                        + "<td>" + item.FirstName + "</td>"
-                        + "<td>" + item.LastName + "</td>"
-                        + "<td>" + convertJSONDate(item.DueDate) + "</td>"
-                        + "<td>" + convertJSONDate(item.DateReturned) + "</td>"
-                        + "<td class='sum'>" + item.Penalty + "</td>"
-                        + "</tr>"
-                        $('#tableId tbody').append(rows);
-                    });
-                    var sum = 0;
-                    $("#tableId tbody .sum").each(function () {
-                        var value = $(this)[0].innerText;
-
-                        if (!isNaN(value) && value.length != 0) {
-                            sum += parseFloat(value);
-                        }
-                    });
-                    var row = "<tr>"
-                        + "<td>"+ "" + "</td>"
-                        + "<td>" + "" + "</td>"
-                        + "<td>" + "" + "</td>"
-                        + "<td>" + "" + "</td>"
-                        + "<td class='sum'>" + sum + "</td>"
-                        + "</tr>"
-                    $('#tableId tbody').append(row);
-                },
-                error: function (ex) {
-                    var r = ex.responseText;
-                }
-            });
-        });
-        $(document).ready(function () {
-            $(".live-search-box").focus(function () {
-                $("#search-list").removeClass("list-close").slideDown(700);
-            });
-            $(".live-search-box").focusout(function () {
-                $("#search-list").addClass("list-close");
-            });
-            function Contains(text_one, text_two) {
-                if (text_one.indexOf(text_two) != -1)
-                    return true;
-            }
-            $(".live-search-box").keyup(function () {
-                
-
-                var searchText = $(".live-search-box").val().toLowerCase();
-
-                $(".live-search-list li").each(function () {
-                    if (!Contains($(this).text().toLowerCase(), searchText)) {
-                        $(this).hide();
-                    }
-                    else {
-                        $(this).show();
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body class="login-body">
     <div class="wrapper">
