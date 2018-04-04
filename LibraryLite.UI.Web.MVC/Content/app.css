@@ -17,7 +17,7 @@ body, html {
 select{
     font-size: 12px;
        border: 0px solid rgba(0,0,0,0.3);
-        color: #555555
+        color: #555
 }
 /*---------------------------------------------------*/
 a {
@@ -1038,7 +1038,7 @@ textarea:focus:-ms-input-placeholder { color:transparent; }
 
 input::-webkit-input-placeholder { 
   font-family: Poppins-Medium;  
-        color: #555555;
+        color: #555;
 }
 input:-moz-placeholder { 
   font-family: Poppins-Medium;  
@@ -1063,11 +1063,11 @@ textarea:-moz-placeholder {
 }
 textarea::-moz-placeholder { 
   font-family: Poppins-Medium;  
-        color: #555555;
+        color: #555;
 }
 textarea:-ms-input-placeholder { 
   font-family: Poppins-Medium;  
-        color: #555555;
+        color: #555;
 }
 
 /*---------------------------------------------*/
@@ -1215,7 +1215,7 @@ input[type="password" i],.multiselect.btn,.input{
      -moz-transition: all 0.4s;
           transition: all 0.4s;
 
-          background: #ff4b5a;
+          background: #277F5C;
 }
 
 
@@ -1224,13 +1224,11 @@ input.input {
   height: 20px;
 }
 
-
 textarea.input {
       min-height: 50px;
      padding-top: 9px;
   padding-bottom: 13px;
 }
-
 
 .input:focus + .input-focus::before {
   width: 100%;
@@ -1239,7 +1237,6 @@ textarea.input {
 .has-val.input + .input-focus::before {
   width: 100%;
 }
-
 
 /*------------------------------------------------------------------
 [ Button ]*/
@@ -1653,4 +1650,10 @@ legend {
       display: block;
         width: 7%;
     font-size: 0.8rem;
+}
+.input-label::after{
+        content: "*";
+    margin-left: 5px;
+          color: #d92a2a;
+    font-weight: 700
 }
